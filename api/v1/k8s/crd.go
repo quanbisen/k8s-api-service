@@ -48,8 +48,8 @@ func GetCRDs(c *gin.Context) {
 		return
 	}
 	crdOperation := k8s.NewCRDOperation(dyn)
-	gvk := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
-	unstructuredList, err := crdOperation.List(context.TODO(), gvk, queryParam)
+	gvr := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
+	unstructuredList, err := crdOperation.List(context.TODO(), gvr, queryParam)
 	if err != nil {
 		appG.Fail(http.StatusInternalServerError, err, nil)
 		return
@@ -87,8 +87,8 @@ func GetCRD(c *gin.Context) {
 		return
 	}
 	crdOperation := k8s.NewCRDOperation(dyn)
-	gvk := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
-	unstructured, err := crdOperation.Get(context.TODO(), gvk, param["namespace"], param["name"])
+	gvr := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
+	unstructured, err := crdOperation.Get(context.TODO(), gvr, param["namespace"], param["name"])
 	if err != nil {
 		appG.Fail(http.StatusInternalServerError, err, nil)
 		return
@@ -138,8 +138,8 @@ func PostCRD(c *gin.Context) {
 		return
 	}
 	crdOperation := k8s.NewCRDOperation(dyn)
-	gvk := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
-	unstructured, err := crdOperation.Create(context.TODO(), gvk, data)
+	gvr := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
+	unstructured, err := crdOperation.Create(context.TODO(), gvr, data)
 	if err != nil {
 		appG.Fail(http.StatusInternalServerError, err, nil)
 		return
@@ -190,8 +190,8 @@ func PutCRD(c *gin.Context) {
 		return
 	}
 	crdOperation := k8s.NewCRDOperation(dyn)
-	gvk := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
-	unstructured, err := crdOperation.Update(context.TODO(), gvk, param["namespace"], param["name"], data)
+	gvr := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
+	unstructured, err := crdOperation.Update(context.TODO(), gvr, param["namespace"], param["name"], data)
 	if err != nil {
 		appG.Fail(http.StatusInternalServerError, err, nil)
 		return
@@ -229,8 +229,8 @@ func DeleteCRD(c *gin.Context) {
 		return
 	}
 	crdOperation := k8s.NewCRDOperation(dyn)
-	gvk := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
-	err = crdOperation.Delete(context.TODO(), gvk, param["namespace"], param["name"])
+	gvr := schema.GroupVersionResource{Group: param["group"], Version: param["version"], Resource: param["resource"]}
+	err = crdOperation.Delete(context.TODO(), gvr, param["namespace"], param["name"])
 	if err != nil {
 		appG.Fail(http.StatusInternalServerError, err, nil)
 		return
